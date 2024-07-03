@@ -20,7 +20,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">My Details</h5>
                             <p class="card-text">View and edit your personal details.</p>
-                            <a href="mydetails.php" class="btn btn-primary">Go to My Details</a>
+                            <a href="profile.php" class="btn btn-primary">Go to My Details</a>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">New Requests</h5>
                             <p class="card-text">View new requests.</p>
-                            <a href="new_requests.php" class="btn btn-primary">Go to New Requests</a>
+                            <a href="requests.php?status=new" class="btn btn-primary">Go to New Requests</a>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">In Progress</h5>
                             <p class="card-text">View requests in progress.</p>
-                            <a href="in_progress.php" class="btn btn-primary">Go to In Progress</a>
+                            <a href="requests.php?status=in_progress" class="btn btn-primary">Go to In Progress</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">Completed</h5>
                             <p class="card-text">View completed requests.</p>
-                            <a href="completed.php" class="btn btn-primary">Go to Completed</a>
+                            <a href="requests.php?status=completed" class="btn btn-primary">Go to Completed</a>
                         </div>
                     </div>
                 </div>

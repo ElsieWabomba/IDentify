@@ -39,7 +39,10 @@ include "frame.php";
                         </div>
                         <div class="mb-3">
                             <label for="county" class="form-label">County:</label>
-                            <input type="text" class="form-control" id="county" name="county" required>
+                            <select class="form-select" id="county" name="county" required>
+                                <option value="">Select County</option>
+                                <?= displayCountyOptions($counties) ?>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary" name="saveAgent">Submit</button>
                     </form>

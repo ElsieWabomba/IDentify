@@ -18,12 +18,13 @@ include "frame.php";
       <form action="processor.php" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <label for="agency_id">Agency ID</label>
-            <input type="text" class="form-control" id="agency_id" name="agency_id" required>
+            <label for="agency_id">Agency</label>
+            <select class="form-select" id="agency_id" name="agency_id" required>
+            <?= displayAgentOptions($con)?>
+            </select>
           </div>
           <div class="form-group">
-            <label for="user_id">User ID</label>
-            <input type="text" class="form-control" id="user_id" name="user_id" required>
+            <input type="hidden" class="form-control" id="user_id" value="<?= $_SESSION['user_id']?>" name="user_id">
           </div>
           <div class="form-group">
             <label for="phone">Phone</label>
@@ -31,11 +32,13 @@ include "frame.php";
           </div>
           <div class="form-group">
             <label for="type">Type</label>
-            <input type="text" class="form-control" id="type" name="type" value="1" readonly>
+            <select class="form-select" id="type" name="type" value="1">
+              <option value="">Select Request Type</option>
+              <?= displayRequestTypesOptions($requestTypes) ?>
+            </select>
           </div>
           <div class="form-group">
-            <label for="status">Status</label>
-            <input type="text" class="form-control" id="status" name="status" required>
+            <input type="hidden" class="form-control" id="status" name="status" value="new">
           </div>
         </div>
         <div class="modal-footer">

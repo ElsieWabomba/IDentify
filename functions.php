@@ -63,9 +63,101 @@ function searchUser($con, $userEmail, $userPhone) {
     }
     return $users;
 }
-function saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $userAgency){
-    $saveUser = mysqli_query($con, "INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`,  `village`, `role`, `agency`)
-                                     VALUES (NULL, '$userFname', '$userMname', '$userLname', '$userPhone', '$userEmail', '$userDob', '$userPob', '$userPassword', '$userClan', '$userVillage', '$userRole', '$userAgency')");
+function uploadBirthCert($birthCert){
+    $birthCertName = "";
+    if (!empty($birthCert)) {            
+        $docname = $_FILES['birth_cert']['name'];
+        $doclocation = $_FILES['birth_cert']['tmp_name'];
+        $doctitle = explode(".", $docname);
+        $docext = end($doctitle);
+        $birthCertName =  date('Y-m-d-H-i-s')."-birth-cert.".$docext;
+        $docdestination = "attachments/images/documents/$birthCertName";
+        
+        if (move_uploaded_file($doclocation, $docdestination)){
+           return $birthCertName;
+        }
+    }
+    else
+    {
+        return $birthCertName;
+    }  
+}
+function uploadProfilePic($profilePic){
+    $profilePicName = "";
+    if (!empty($profilePic)) {            
+        $docname = $_FILES['profile_pic']['name'];
+        $doclocation = $_FILES['profile_pic']['tmp_name'];
+        $doctitle = explode(".", $docname);
+        $docext = end($doctitle);
+        $profilePicName =  date('Y-m-d-H-i-s')."profile-pic.".$docext;
+        $docdestination = "attachments/images/users/$profilePicName";
+        
+        if (move_uploaded_file($doclocation, $docdestination)){
+           return $profilePicName;
+        }
+    }
+    else
+    {
+        return $profilePicName;
+    }
+}
+function uploadFathersId($dadId){
+    $dadIdName = "";
+    if (!empty($dadId)) {            
+        $docname = $_FILES['dad_id']['name'];
+        $doclocation = $_FILES['dad_id']['tmp_name'];
+        $doctitle = explode(".", $docname);
+        $docext = end($doctitle);
+        $dadIdName =  date('Y-m-d-H-i-s')."-dadId.".$docext;
+        $docdestination = "attachments/images/documents/$dadIdName";
+        
+        if (move_uploaded_file($doclocation, $docdestination)){
+           return $dadIdName;
+        }
+    }
+    else
+    {
+        return $dadIdName;
+    }  
+}
+function uploadMothersId($dadId){
+    $momIdName = "";
+    if (!empty($dadId)) {            
+        $docname = $_FILES['mom_id']['name'];
+        $doclocation = $_FILES['mom_id']['tmp_name'];
+        $doctitle = explode(".", $docname);
+        $docext = end($doctitle);
+        $momIdName =  date('Y-m-d-H-i-s')."-momId.".$docext;
+        $docdestination = "attachments/images/documents/$momIdName";
+        
+        if (move_uploaded_file($doclocation, $docdestination)){
+           return $momIdName;
+        }
+    }
+    else
+    {
+        return $momIdName;
+    }  
+}
+function uploadFile($file, $prefix, $destination) {
+    $fileName = "";
+    if (!empty($file) && $file['error'] == UPLOAD_ERR_OK) {            
+        $docname = $file['name'];
+        $doclocation = $file['tmp_name'];
+        $doctitle = explode(".", $docname);
+        $docext = end($doctitle);
+        $fileName = date('Y-m-d-H-i-s')."-".$prefix.".".$docext;
+        $docdestination = $destination . $fileName;
+        
+        if (move_uploaded_file($doclocation, $docdestination)){
+           return $fileName;
+        }
+    }
+    return $fileName;
+}
+function saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $dadId, $momId, $birthCert, $userAgency){
+    $saveUser = mysqli_query($con, "INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`,  `village`, `role`,`profile_pic`, `fathers_id`, `mothers_id`, `birth_cert`, `agency`)
+                                     VALUES (NULL, '$userFname', '$userMname', '$userLname', '$userPhone', '$userEmail', '$userDob', '$userPob', '$userPassword', '$userClan', '$userVillage', '$userRole', '$profilePic', '$dadId', '$momId', '$birthCert', '$userAgency')");
     if ($saveUser) {
         return true;
     }
@@ -95,15 +187,15 @@ function displayCountyOptions($counties){
         echo "<option value=''>No County Listed Yet</option>";
     }
 }
-function displayRequestTypesOptions($counties){
-    asort($counties);
-    if(count($counties)>=1){
-        foreach($counties as $id => $county){
-            echo "<option value='$id'>$county</option>";
+function displayRequestTypesOptions($requestTypes){
+    asort($requestTypes);
+    if(count($requestTypes)>=1){
+        foreach($requestTypes as $id => $requestType){
+            echo "<option value='$id'>$requestType</option>";
         }
     }
     else{
-        echo "<option value=''>No County Listed Yet</option>";
+        echo "<option value=''>No Request Type Listed Yet</option>";
     }
 }
 function fetchAgents($con){
@@ -120,7 +212,7 @@ function displayAgentOptions($con){
     asort($agents);
     if(count($agents)>=1){
         foreach($agents as $agent){
-            echo "<option value='$id'>$agent</option>";
+            echo "<option value='{$agent['id']}'>{$agent['name']}</option>";
         }
     }
     else{
@@ -135,6 +227,16 @@ function fetchUsers($con){
     else{
         $result = mysqli_query($con, "SELECT * FROM `users`");
     }
+    $users = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $users[] = $row;
+    }
+    return $users;
+}
+function fetchUserDetails($con){
+
+    $result = mysqli_query($con, "SELECT * FROM `users` WHERE `id`='{$_SESSION['user_id']}'");
     $users = [];
 
     while ($row = mysqli_fetch_assoc($result)) {
@@ -181,32 +283,48 @@ function verifyUser($con, $userEmail, $userPassword) {
 }
 //Requests
 function fetchRequests($con){
+    $userId = $_SESSION['user_id'];
+    $userLevel = $_SESSION['user_level'];
+    $agencyId = $_SESSION['user_agency'];
+
+    $query = "SELECT 
+                cr.id,
+                cr.agency_id,
+                a.name AS agency_name,
+                cr.user_id,
+                CONCAT(u.fname, ' ', u.mname, ' ', u.lname) AS user_name,
+                cr.phone,
+                cr.request_date,
+                cr.date_issued,
+                cr.type,
+                cr.status
+            FROM 
+                card_request cr
+            LEFT JOIN 
+                agent a ON cr.agency_id = a.id
+            LEFT JOIN 
+                users u ON cr.user_id = u.id
+            WHERE 1=1"; // Starting condition to facilitate dynamic query building
+
+    // Append conditions based on user level and status
     if (isset($_GET['status'])) {
-        $status = $_GET['status'];
-        if ($_SESSION['user_level']==1) {
-            $result = mysqli_query($con, "SELECT * FROM `card_request` WHERE `status`='$status' AND `user_id`=".$_SESSION['user_id']);        
-        }
-        elseif ($_SESSION['user_level']==2) {
-            $result = mysqli_query($con, "SELECT * FROM `card_request` WHERE `status`='$status' AND `agency`='1'");
-        }
-        else {
-            $result = mysqli_query($con, "SELECT * FROM `card_request` WHERE `status`='$status'");
-        }
+        $status = mysqli_real_escape_string($con, $_GET['status']);
+        $query .= " AND cr.status='$status'";
     }
-    else{
 
-        if ($_SESSION['user_level']==1) {
-            $result = mysqli_query($con, "SELECT * FROM `card_request` WHERE `user_id`=".$_SESSION['user_id']);        
-        }
-        elseif ($_SESSION['user_level']==2) {
-            $result = mysqli_query($con, "SELECT * FROM `card_request` WHERE `agency`='1'");
-        }
-        else {
-            $result = mysqli_query($con, "SELECT * FROM `card_request`");
-        }
+    if ($userLevel == 1) {
+        $query .= " AND cr.user_id=$userId";
+    } elseif ($userLevel == 2) {
+        $query .= " AND cr.agency_id=$agencyId";
     }
+
+    // Execute the query
+    $result = mysqli_query($con, $query);
+    if (!$result) {
+        die('Error: ' . mysqli_error($con));
+    }
+
     $requests = [];
-
     while ($row = mysqli_fetch_assoc($result)) {
         $requests[] = $row;
     }
@@ -215,15 +333,48 @@ function fetchRequests($con){
 
 function displayRequests($con){
     $requests = fetchRequests($con);
-    if(count($requests)>=1){
-        echo "<ul class='requests items'>";
+    if(count($requests) >= 1){
+        echo "<table class='table table-striped'>";
+        echo "<thead><tr>
+                <th>ID</th>
+                <th>Agency Name</th>
+                <th>User Name</th>
+                <th>Phone</th>
+                <th>Request Date</th>
+                <th>Date Issued</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr></thead>";
+        echo "<tbody>";
         foreach ($requests as $request) {
-            echo "<li>{$request['request_date']}</li>";
+            echo "<tr>
+                    <td>{$request['id']}</td>
+                    <td>{$request['agency_name']}</td>
+                    <td>{$request['user_name']}</td>
+                    <td>{$request['phone']}</td>
+                    <td>{$request['request_date']}</td>
+                    <td>{$request['date_issued']}</td>
+                    <td>{$request['type']}</td>
+                    <td>{$request['status']}</td>;
+                    <td>"; // Start the action cell
+
+                    // Determine which button to display based on the status
+                    if ($request['status'] == "new") {
+                        echo "<button class='btn btn-primary attend-btn' data-id='{$request['id']}'>Attend</button>";
+                    } elseif ($request['status'] == "In Progress") {
+                        echo "<button class='btn btn-warning complete-btn' data-id='{$request['id']}'>Complete</button>";
+                    } elseif ($request['status'] == "Complete") {
+                        echo "<button class='btn btn-success issue-btn' data-id='{$request['id']}'>Issue Card</button>";
+                    }
+
+                    echo "</td>
+                </tr>";
         }
-        echo "</ul>";
-    }
-    else{
-        echo "No Requests Made Yet.";
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<div class='alert alert-info' role='alert'>No Requests Made Yet.</div>";
     }
 }
 function saveCardRequest($con, $agencyId, $userId, $phone, $type, $status){

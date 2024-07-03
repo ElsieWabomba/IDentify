@@ -18,7 +18,7 @@ include "frame.php";
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form id="userForm" method="post" action="processor.php">
+                    <form id="userForm" method="post" action="processor.php" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="fname" class="form-label">First Name:</label>
                             <input type="text" class="form-control" id="fname" name="fname" required>
@@ -58,6 +58,22 @@ include "frame.php";
                         <div class="mb-3">
                             <label for="village" class="form-label">Village:</label>
                             <input type="text" class="form-control" id="village" name="village" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="birth_cert" class="form-label">Birth Cert:</label>
+                            <input type="file" class="form-control" id="birth_cert" name="birth_cert">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dad_id" class="form-label">Father's Id:</label>
+                            <input type="file" class="form-control" id="dad_id" name="dad_id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mom_id" class="form-label">Mother's Id:</label>
+                            <input type="file" class="form-control" id="mom_id" name="mom_id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="profile_pic" class="form-label">Profile Pic:</label>
+                            <input type="file" class="form-control" id="profile_pic" name="profile_pic">
                         </div>
                         <div class="mb-3">
                             <label for="agency" class="form-label">Agency:</label>

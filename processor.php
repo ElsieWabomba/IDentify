@@ -39,9 +39,15 @@ if (isset($_POST['saveUser'])) {
     $userVillage = mysqli_real_escape_string($con, $_POST['village']);
     $userAgency = mysqli_real_escape_string($con, $_POST['agency']);
     $userRole = mysqli_real_escape_string($con, $_POST['role']);
+    
+    $profilePic = uploadFile($_FILES['profile_pic'], "profile_pic", "attachments/images/users/");
+    $momId = uploadFile($_FILES['mom_id'], "momId", "attachments/images/documents/");
+    $dadId = uploadFile($_FILES['dad_id'], "dadId", "attachments/images/documents/");
+    $birthCert = uploadFile($_FILES['birth_cert'], "birth_cert", "attachments/images/documents/");
+
 
     if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
-        $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userAgency, $userRole);
+        $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $dadId, $momId, $birthCert, $userAgency);
         if ($saveUser) {
             $_SESSION['message'] = "User added successfully!";
             $_SESSION['msg_type'] = "success";
@@ -68,6 +74,7 @@ if (isset($_POST['loginUser'])) {
         $_SESSION['user_level'] = $user['role'];
         $_SESSION['user_lname'] = $user['lname'];
         $_SESSION['user_name'] = $user['fname'];
+        $_SESSION['user_agency'] = $user['agency'];
         $_SESSION['message'] = "Login successful!";
         $_SESSION['msg_type'] = "success";
         header('Location: dashboard.php');
@@ -99,4 +106,13 @@ if (isset($_POST['saveCardRequest'])) {
     header('Location: dashboard.php');
     exit();
 }
-?>
+if (isset($_POST['id']) && isset( $_POST['status'])) {
+    $id = mysqli_real_escape_string($con, $_POST['id']);
+    $status = mysqli_real_escape_string($con, $_POST['status']);
+
+    if (mysqli_query($con, "UPDATE card_request SET status='$status' WHERE id=$id")) {
+        echo 'Status updated successfully';
+    } else {
+        echo 'Error: ' . mysqli_error($con);
+    }
+}
