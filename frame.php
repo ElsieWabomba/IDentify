@@ -30,33 +30,33 @@ include "functions.php";
                 <li class="nav-item">
                     <a class="nav-link" href="agents.php">Agents</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="requests.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Id Cards
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="requests.php?status=complete">Complete</a></li>
-                        <li><a class="dropdown-item" href="requests.php?status=new">New Requests</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="requests.php?status=in progress">Pending</a></li>
-                    </ul>
-                </li>
-                <?php if (isset($_SESSION['user_level']) AND ($_SESSION['user_level'] == '1' || $_SESSION['user_level'] == '3')): ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="users.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Users
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="users.php?cat=1">Agents</a></li>
-                        <li><a class="dropdown-item" href="users.php?cat=2">Members</a></li>
-                    </ul>
-                </li>
-                <?php endif; ?>
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="dashboard.php">Dashboard</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="requests.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Id Cards
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="requests.php?status=complete">Complete</a></li>
+                                <li><a class="dropdown-item" href="requests.php?status=new">New Requests</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="requests.php?status=in progress">Pending</a></li>
+                            </ul>
+                        </li>
+                        <?php if ($_SESSION['user_level'] == '2' || $_SESSION['user_level'] == '3'): ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="users.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Users
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="users.php?cat=1">Agents</a></li>
+                                    <li><a class="dropdown-item" href="users.php?cat=2">Members</a></li>
+                                </ul>
+                            </li>
+                            <?php endif; ?>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Logout</a>
                         </li>
