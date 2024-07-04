@@ -116,3 +116,41 @@ if (isset($_POST['id']) && isset( $_POST['status'])) {
         echo 'Error: ' . mysqli_error($con);
     }
 }
+if (isset($_POST['request_id'])) {
+    $requestId = mysqli_real_escape_string($con, $_POST['request_id']);
+    $query = "
+        SELECT cr.*, u.fname, u.mname, u.lname, u.dob, u.pob, u.profile_pic, u.village, a.name
+        FROM card_request cr
+        JOIN users u ON cr.user_id = u.id
+        JOIN agent a ON cr.agency_id = a.id
+        WHERE cr.id = '$requestId'
+    ";
+    $result = mysqli_query($con, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $card = mysqli_fetch_assoc($result);
+        
+        echo "
+            <div class='card'>
+                <div class='card-header'>
+                    <h5>Card Details</h5>
+                </div>
+                <div class='card-body'>
+                    <p><strong>First Name:</strong> {$card['fname']}</p>
+                    <p><strong>Middle Name:</strong> {$card['mname']}</p>
+                    <p><strong>Last Name:</strong> {$card['lname']}</p>
+                    <p><strong>Date of Birth:</strong> {$card['dob']}</p>
+                    <p><strong>Place of Birth:</strong> {$card['pob']}</p>
+                    <p><strong>Village:</strong> {$card['village']}</p>
+                    <p><strong>Agency Name:</strong> {$card['name']}</p>
+                    <p><strong>Date Issued:</strong> {$card['date_issued']}</p>
+                    <img src='attachments/images/users/{$card['profile_pic']}' alt='Profile Picture' class='img-fluid'>
+                </div>
+            </div>
+        ";
+    } else {
+        echo "<div class='alert alert-danger'>Failed to fetch card details.</div>";
+    }
+} else {
+    echo "<div class='alert alert-danger'>Invalid request.</div>";
+}

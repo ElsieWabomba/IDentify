@@ -39,7 +39,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">In Progress</h5>
                             <p class="card-text">View requests in progress.</p>
-                            <a href="requests.php?status=in_progress" class="btn btn-primary">Go to In Progress</a>
+                            <a href="requests.php?status=in progress" class="btn btn-primary">Go to In Progress</a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ include "redirector.php";
                         <div class="card-body">
                             <h5 class="card-title">Completed</h5>
                             <p class="card-text">View completed requests.</p>
-                            <a href="requests.php?status=completed" class="btn btn-primary">Go to Completed</a>
+                            <a href="requests.php?status=complete" class="btn btn-primary">Go to Completed</a>
                         </div>
                     </div>
                 </div>

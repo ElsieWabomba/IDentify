@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2024 at 07:36 AM
+-- Generation Time: Jul 04, 2024 at 08:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,7 +68,9 @@ CREATE TABLE `card_request` (
 --
 
 INSERT INTO `card_request` (`id`, `agency_id`, `user_id`, `phone`, `request_date`, `date_issued`, `type`, `status`) VALUES
-(1, 1, 1, 4890403, '2024-06-30 22:53:28', NULL, 1, '1');
+(2, 1, 1, 28384930, '2024-07-03 15:17:06', NULL, 1, 'new'),
+(3, 2, 6, 28384930, '2024-07-03 16:03:51', NULL, 2, 'Complete'),
+(4, 4, 7, 28384930, '2024-07-04 08:49:45', NULL, 1, 'Issued');
 
 -- --------------------------------------------------------
 
@@ -89,6 +91,10 @@ CREATE TABLE `users` (
   `clan` varchar(50) NOT NULL,
   `village` varchar(50) NOT NULL,
   `role` int(10) NOT NULL,
+  `profile_pic` varchar(255) NOT NULL,
+  `fathers_id` varchar(255) NOT NULL,
+  `mothers_id` varchar(255) NOT NULL,
+  `birth_cert` varchar(255) NOT NULL,
   `agency` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -96,8 +102,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`, `village`, `role`, `agency`) VALUES
-(1, 'J', 'k', 'm', 283939, 'mmattajulius815@gmail.com', '2024-06-25', 'Mvita', '$2y$10$ja7q.CB.XoYTpQBIU/2bkuxTCFGS6E2lV7pGjQzVyt4rUWFrwrEyq', 'Mwiguithania', 'Chemilil', 1, 1);
+INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`, `village`, `role`, `profile_pic`, `fathers_id`, `mothers_id`, `birth_cert`, `agency`) VALUES
+(6, 'Martin', 'wq', 'qq', 8393902, 'mattajulius815@gmail.com', '2024-07-02', 'CBD', '$2y$10$awU2OLOo32vJqu9Y./f7eO6rEnoJTWgvTNUjqmbs/0jdZmrypmr0C', 'mkwwo', 'kkdoa', 2, '2024-07-03-14-15-41-profile_pic.png', '2024-07-03-14-15-42-dadId.jpg', '2024-07-03-14-15-42-momId.jpg', '2024-07-03-14-15-42-birth_cert.jpg', 2),
+(7, 'Keff', 'Joinyambe', 'Minagu', 92738923, 'mmattajulius815@gmail.com', '2024-07-03', 'Juja', '$2y$10$zBU53jLVOb4u9DOf09X02eAtYfF608Apv7T46ubT1c9GJF8Ehe.LK', 'Aduruma', 'Kiambu', 1, '2024-07-04-07-48-22-profile_pic.jpg', '2024-07-04-07-48-22-dadId.jpg', '2024-07-04-07-48-22-momId.jpg', '2024-07-04-07-48-22-birth_cert.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -135,13 +142,13 @@ ALTER TABLE `agent`
 -- AUTO_INCREMENT for table `card_request`
 --
 ALTER TABLE `card_request`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

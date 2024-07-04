@@ -12,8 +12,8 @@ include "functions.php";
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KyZXEAg3QhqLMpG8r+8fhAXLRskhw9p6Aw4XDoEa49A=" crossorigin="anonymous"></script>
-    <script src="app.js" type="js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="app.js" type="text/javascript"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -35,12 +35,13 @@ include "functions.php";
                         Id Cards
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Complete</a></li>
-                        <li><a class="dropdown-item" href="#">New Requests</a></li>
+                        <li><a class="dropdown-item" href="requests.php?status=complete">Complete</a></li>
+                        <li><a class="dropdown-item" href="requests.php?status=new">New Requests</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Pending</a></li>
+                        <li><a class="dropdown-item" href="requests.php?status=in progress">Pending</a></li>
                     </ul>
                 </li>
+                <?php if ($_SESSION['user_level'] == '2' || $_SESSION['user_level'] == '3'): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="users.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Users
@@ -50,6 +51,7 @@ include "functions.php";
                         <li><a class="dropdown-item" href="users.php?cat=2">Members</a></li>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <ul class="navbar-nav ms-auto">
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item">
@@ -72,15 +74,6 @@ include "functions.php";
     </nav>
     <div class="container">
         <?php
-        //For System Errors
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
-        
             if (isset($_SESSION['message'])): ?>
                 <div class="alert alert-<?php echo $_SESSION['msg_type']; ?>">
                     <?php echo $_SESSION['message']; ?>

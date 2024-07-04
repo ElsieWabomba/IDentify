@@ -1,6 +1,7 @@
 $(document).ready(function() {
     // Event listener for Attend button
     $('.attend-btn').on('click', function() {
+        console.log("x");
         let requestId = $(this).data('id');
         updateStatus(requestId, 'In Progress');
     });
@@ -21,7 +22,7 @@ $(document).ready(function() {
     function updateStatus(requestId, newStatus) {
         $.ajax({
             type: 'POST',
-            url: 'update_status.php',
+            url: 'processor.php',
             data: {id: requestId, status: newStatus},
             success: function(response) {
                 if (response.trim() === 'Status updated successfully') {
@@ -33,4 +34,17 @@ $(document).ready(function() {
             }
         });
     }
+    $('.view-card').click(function() {
+        var requestId = $(this).data('id');
+        
+        $.ajax({
+            url: 'processor.php',
+            method: 'POST',
+            data: { request_id: requestId },
+            success: function(response) {
+                $('#cardDetails').html(response);
+                $('#cardModal').modal('show');
+            }
+        });
+    });
 });

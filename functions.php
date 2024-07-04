@@ -367,6 +367,9 @@ function displayRequests($con){
                     } elseif ($request['status'] == "Complete") {
                         echo "<button class='btn btn-success issue-btn' data-id='{$request['id']}'>Issue Card</button>";
                     }
+                    else if ($request['status'] == "Issued") {
+                        echo "<button class='btn btn-primary view-card' data-id='{$request['id']}'>View Card</button>";
+                    }
 
                     echo "</td>
                 </tr>";
