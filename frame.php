@@ -66,6 +66,13 @@ include "functions.php";
                                 Login
                             </button>
                         </li>
+                        <li class="nav-item">
+                            <a href="signup.php">
+                                <span type="button" class="btn btn-primary">
+                                    Sign Up
+                                </span>
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </ul>
