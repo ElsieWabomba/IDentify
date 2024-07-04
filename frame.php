@@ -41,7 +41,7 @@ include "functions.php";
                         <li><a class="dropdown-item" href="requests.php?status=in progress">Pending</a></li>
                     </ul>
                 </li>
-                <?php if ($_SESSION['user_level'] == '2' || $_SESSION['user_level'] == '3'): ?>
+                <?php if (isset($_SESSION['user_level']) AND ($_SESSION['user_level'] == '1' || $_SESSION['user_level'] == '3')): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="users.php" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Users
