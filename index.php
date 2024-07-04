@@ -1,8 +1,6 @@
 <?php
-include "frame.php";
-?>
-<div class="container">
-<?php
-    displayAgents($con)
-?>
-</div>
+if (!isset($_SESSION["user_id"]))
+    return header('location: login.php');
+else {
+    return header('location: dashboard.php');   
+}
