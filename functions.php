@@ -246,17 +246,35 @@ function fetchUserDetails($con){
 }
 function displayAgents($con){
     $agents = fetchAgents($con);
-    if(count($agents)>=1){
-        echo "<ul class='agents items'>";
+    if(count($agents) >= 1){
+        echo "<h3 class='mb-3'>Agents</h3>
+            <table class='table table-striped table-bordered'>
+             <thead class='table-dark'><tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>County</th>
+              </tr></thead>";
+        echo "<tbody>";
         foreach ($agents as $agent) {
-            echo "<li>{$agent['name']}</li>";
+            echo "<tr>
+                    <td>{$agent['id']}</td>
+                    <td>{$agent['name']}</td>
+                    <td>{$agent['email']}</td>
+                    <td>{$agent['phone']}</td>
+                    <td>{$agent['location']}</td>
+                    <td>{$agent['county']}</td>
+                  </tr>";
         }
-        echo "</ul>";
-    }
-    else{
-        echo "No Agents Listed Yet.";
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<div class='alert alert-info' role='alert'>No Agents Listed Yet.</div>";
     }
 }
+
 function displayUsers($con){
     $users = fetchUsers($con);
     if(count($users)>=1){
