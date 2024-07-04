@@ -244,7 +244,7 @@ function fetchUserDetails($con){
     }
     return $users;
 }
-function displayAgents($con){
+function displayAgents($con, $counties){
     $agents = fetchAgents($con);
     if(count($agents) >= 1){
         echo "<h3 class='mb-3'>Agents</h3>
@@ -264,9 +264,14 @@ function displayAgents($con){
                     <td>{$agent['name']}</td>
                     <td>{$agent['email']}</td>
                     <td>{$agent['phone']}</td>
-                    <td>{$agent['location']}</td>
-                    <td>{$agent['county']}</td>
-                  </tr>";
+                    <td>{$agent['location']}</td>";
+                    foreach ($counties as $id => $county) {
+                        if ($id == $agent['county']) {
+                            echo "<td>{$county}</td>";
+                        }
+                    }
+                    
+                  echo"</tr>";
         }
         echo "</tbody>";
         echo "</table>";

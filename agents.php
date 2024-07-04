@@ -6,7 +6,7 @@ include "frame.php";
         Add Agent
     </button>
     <?php
-        displayAgents($con);
+        displayAgents($con, $counties);
     ?>
     <div class="modal fade" id="agentModal" tabindex="-1" aria-labelledby="agentModalLabel" aria-hidden="true">
         <div class="modal-dialog">

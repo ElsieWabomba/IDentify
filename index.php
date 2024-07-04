@@ -3,6 +3,6 @@ include "frame.php";
 ?>
 <div class="container">
 <?php
-    displayAgents($con)
+    displayAgents($con, $counties)
 ?>
 </div>
