@@ -334,8 +334,8 @@ function fetchRequests($con){
 function displayRequests($con){
     $requests = fetchRequests($con);
     if(count($requests) >= 1){
-        echo "<table class='table table-striped'>";
-        echo "<thead><tr>
+        echo "<table class='table table-striped'>
+                <thead><tr>
                 <th>ID</th>
                 <th>Agency Name</th>
                 <th>User Name</th>
@@ -360,11 +360,11 @@ function displayRequests($con){
                     <td>"; // Start the action cell
 
                     // Determine which button to display based on the status
-                    if ($request['status'] == "new") {
+                    if ($request['status'] == "new" && $_SESSION['user_level'] == '2') {
                         echo "<button class='btn btn-primary attend-btn' data-id='{$request['id']}'>Attend</button>";
-                    } elseif ($request['status'] == "In Progress") {
+                    } elseif ($request['status'] == "In Progress" && $_SESSION['user_level'] == '2') {
                         echo "<button class='btn btn-warning complete-btn' data-id='{$request['id']}'>Complete</button>";
-                    } elseif ($request['status'] == "Complete") {
+                    } elseif ($request['status'] == "Complete" && $_SESSION['user_level'] == '3') {
                         echo "<button class='btn btn-success issue-btn' data-id='{$request['id']}'>Issue Card</button>";
                     }
                     else if ($request['status'] == "Issued") {

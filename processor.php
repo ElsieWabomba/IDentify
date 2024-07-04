@@ -106,16 +106,6 @@ if (isset($_POST['saveCardRequest'])) {
     header('Location: dashboard.php');
     exit();
 }
-if (isset($_POST['id']) && isset( $_POST['status'])) {
-    $id = mysqli_real_escape_string($con, $_POST['id']);
-    $status = mysqli_real_escape_string($con, $_POST['status']);
-
-    if (mysqli_query($con, "UPDATE card_request SET status='$status' WHERE id=$id")) {
-        echo 'Status updated successfully';
-    } else {
-        echo 'Error: ' . mysqli_error($con);
-    }
-}
 if (isset($_POST['request_id'])) {
     $requestId = mysqli_real_escape_string($con, $_POST['request_id']);
     $query = "
@@ -148,9 +138,18 @@ if (isset($_POST['request_id'])) {
                 </div>
             </div>
         ";
-    } else {
+    } 
+    else {
         echo "<div class='alert alert-danger'>Failed to fetch card details.</div>";
     }
-} else {
-    echo "<div class='alert alert-danger'>Invalid request.</div>";
+}
+if (isset($_POST['status_id']) && isset( $_POST['status'])) {
+    $id = mysqli_real_escape_string($con, $_POST['status_id']);
+    $status = mysqli_real_escape_string($con, $_POST['status']);
+
+    if (mysqli_query($con, "UPDATE `card_request` SET `status`='$status' WHERE `id`=$id")) {
+        echo 'Status updated successfully';
+    } else {
+        echo 'Error: ' . mysqli_error($con);
+    }
 }
