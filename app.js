@@ -23,13 +23,13 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             url: 'processor.php',
-            data: {id: requestId, status: newStatus},
+            data: {status_id: requestId, status: newStatus},
             success: function(response) {
                 if (response.trim() === 'Status updated successfully') {
                     // Reload the page or update the row status dynamically
                     location.reload();
                 } else {
-                    alert('Failed to update status.');
+                    alert(response);
                 }
             }
         });
