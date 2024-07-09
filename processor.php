@@ -26,7 +26,7 @@ if (isset($_POST['saveAgent'])) {
     header('Location: agents.php');
     exit();
 }
-if (isset($_POST['saveUser'])) {
+if (isset($_POST['saveUser']) ) {
     $userFname = mysqli_real_escape_string($con, $_POST['fname']);
     $userMname = mysqli_real_escape_string($con, $_POST['mname']);
     $userLname = mysqli_real_escape_string($con, $_POST['lname']);
@@ -48,8 +48,8 @@ if (isset($_POST['saveUser'])) {
         if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
             $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency);
             if ($saveUser) {
-                $_SESSION['message'] = "User added successfully!";
-                $_SESSION['msg_type'] = "success";
+                    $_SESSION['message'] = "User added successfully!";
+                    $_SESSION['msg_type'] = "success";
             } else {
                 $_SESSION['message'] = "Failed to add user.";
                 $_SESSION['msg_type'] = "danger";
@@ -64,7 +64,7 @@ if (isset($_POST['saveUser'])) {
         $_SESSION['msg_type'] = "warning";
     }
     
-    header('Location: users.php');
+    header('Location: index.php');
     exit();
 }
 if (isset($_POST['loginUser'])) {

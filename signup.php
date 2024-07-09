@@ -27,6 +27,14 @@ include "frame.php";
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Confirm Password:</label>
+                    <input type="password" class="form-control" id="password" name="cpassword" required>
+                </div>
+                <div class="mb-3">
                     <label for="dob" class="form-label">Date of Birth:</label>
                     <input type="date" class="form-control" id="dob" name="dob" required>
                 </div>
@@ -53,14 +61,6 @@ include "frame.php";
                         <?= displayAgentOptions($con)?>
                     </select>
                     <input type="hidden" value="1" class="form-control" id="role" name="role">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Confirm Password:</label>
-                    <input type="password" class="form-control" id="password" name="cpassword" required>
                 </div>
                 <button type="submit" class="btn btn-primary" name="saveUser">Submit</button>
             </form>
