@@ -43,6 +43,7 @@ $(document).ready(function() {
             data: { request_id: requestId },
             success: function(response) {
                 $('#cardDetails').html(response);
+                $('#downloadCard').attr("href","card.php?request="+requestId);
                 $('#cardModal').modal('show');
             }
         });

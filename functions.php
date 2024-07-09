@@ -417,3 +417,14 @@ function saveCardRequest($con, $agencyId, $userId, $phone, $type, $status){
         return true;
     }
 }
+function fetchCardRequest($con, $requestId){
+    $query = "
+        SELECT cr.*, u.fname, u.mname, u.lname, u.dob, u.pob, u.profile_pic, u.village, a.name
+        FROM card_request cr
+        JOIN users u ON cr.user_id = u.id
+        JOIN agent a ON cr.agency_id = a.id
+        WHERE cr.id = '$requestId'
+    ";
+    $result = mysqli_query($con, $query);
+    return $result;
+}

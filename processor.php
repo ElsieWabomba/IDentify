@@ -104,14 +104,7 @@ if (isset($_POST['saveCardRequest'])) {
 }
 if (isset($_POST['request_id'])) {
     $requestId = mysqli_real_escape_string($con, $_POST['request_id']);
-    $query = "
-        SELECT cr.*, u.fname, u.mname, u.lname, u.dob, u.pob, u.profile_pic, u.village, a.name
-        FROM card_request cr
-        JOIN users u ON cr.user_id = u.id
-        JOIN agent a ON cr.agency_id = a.id
-        WHERE cr.id = '$requestId'
-    ";
-    $result = mysqli_query($con, $query);
+    $result = fetchCardRequest($con, $requestId);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $card = mysqli_fetch_assoc($result);
