@@ -34,25 +34,33 @@ if (isset($_POST['saveUser'])) {
     $userEmail = mysqli_real_escape_string($con, $_POST['email']);
     $userDob = mysqli_real_escape_string($con, $_POST['dob']);
     $userPob = mysqli_real_escape_string($con, $_POST['pob']);
-    $userPassword = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
-    $userClan = mysqli_real_escape_string($con, $_POST['clan']);
-    $userVillage = mysqli_real_escape_string($con, $_POST['village']);
-    $userAgency = mysqli_real_escape_string($con, $_POST['agency']);
-    $userRole = mysqli_real_escape_string($con, $_POST['role']);
-    
-    $profilePic = uploadFile($_FILES['profile_pic'], "profile_pic", "attachments/images/users/");
+    $userPassword = $_POST['password']; 
+    $userConPassword = $_POST['cpassword'];
+    if ($userConPassword === $userPassword) {
+        $userPassword = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
+        $userClan = mysqli_real_escape_string($con, $_POST['clan']);
+        $userVillage = mysqli_real_escape_string($con, $_POST['village']);
+        $userAgency = mysqli_real_escape_string($con, $_POST['agency']);
+        $userRole = $userAgency == "0"? 1 : 2 ;
+        
+        $profilePic = uploadFile($_FILES['profile_pic'], "profile_pic", "attachments/images/users/");
 
-    if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
-        $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency);
-        if ($saveUser) {
-            $_SESSION['message'] = "User added successfully!";
-            $_SESSION['msg_type'] = "success";
+        if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
+            $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency);
+            if ($saveUser) {
+                $_SESSION['message'] = "User added successfully!";
+                $_SESSION['msg_type'] = "success";
+            } else {
+                $_SESSION['message'] = "Failed to add user.";
+                $_SESSION['msg_type'] = "danger";
+            }
         } else {
-            $_SESSION['message'] = "Failed to add user.";
-            $_SESSION['msg_type'] = "danger";
+            $_SESSION['message'] = "User with this email or phone already exists.";
+            $_SESSION['msg_type'] = "warning";
         }
-    } else {
-        $_SESSION['message'] = "User with this email or phone already exists.";
+    }
+    else {
+        $_SESSION['message'] = "Passwords Don't match.";
         $_SESSION['msg_type'] = "warning";
     }
     
@@ -150,7 +158,7 @@ if (isset($_POST['userDocs'])) {
     
     $uploadDocs = uploadUserDocs($con, $dadId, $momId, $birthCert);
 
-    if ($saveRequest) {
+    if ($uploadDocs) {
         $_SESSION['message'] = "Documents Uploaded Successfully!";
         $_SESSION['msg_type'] = "success";
     } else {

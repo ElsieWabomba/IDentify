@@ -37,7 +37,7 @@ $user = fetchUserDetails($con);
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form id="loginForm" method="post" action="processor.php">
+                    <form id="loginForm" method="POST" action="processor.php" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="birth_cert" class="form-label">Birth Cert:</label>
                         <input type="file" class="form-control" id="birth_cert" name="birth_cert">

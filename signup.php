@@ -35,10 +35,6 @@ include "frame.php";
                     <input type="text" class="form-control" id="pob" name="pob" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-                <div class="mb-3">
                     <label for="clan" class="form-label">Clan:</label>
                     <input type="text" class="form-control" id="clan" name="clan" required>
                 </div>
@@ -52,8 +48,19 @@ include "frame.php";
                 </div>
                 <div class="mb-3">
                     <label for="agency" class="form-label">Agency:</label>
-                    <input type="text" class="form-control" id="agency" name="agency" required>
+                    <select class="form-select" id="agency_id" name="agency">
+                        <option value="0">Not an Agent</option>
+                        <?= displayAgentOptions($con)?>
+                    </select>
                     <input type="hidden" value="1" class="form-control" id="role" name="role">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Confirm Password:</label>
+                    <input type="password" class="form-control" id="password" name="cpassword" required>
                 </div>
                 <button type="submit" class="btn btn-primary" name="saveUser">Submit</button>
             </form>
