@@ -47,18 +47,6 @@ include "frame.php";
                     <input type="text" class="form-control" id="village" name="village" required>
                 </div>
                 <div class="mb-3">
-                    <label for="birth_cert" class="form-label">Birth Cert:</label>
-                    <input type="file" class="form-control" id="birth_cert" name="birth_cert">
-                </div>
-                <div class="mb-3">
-                    <label for="dad_id" class="form-label">Father's Id:</label>
-                    <input type="file" class="form-control" id="dad_id" name="dad_id">
-                </div>
-                <div class="mb-3">
-                    <label for="mom_id" class="form-label">Mother's Id:</label>
-                    <input type="file" class="form-control" id="mom_id" name="mom_id">
-                </div>
-                <div class="mb-3">
                     <label for="profile_pic" class="form-label">Profile Pic:</label>
                     <input type="file" class="form-control" id="profile_pic" name="profile_pic">
                 </div>

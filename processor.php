@@ -47,7 +47,7 @@ if (isset($_POST['saveUser'])) {
 
 
     if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
-        $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $dadId, $momId, $birthCert, $userAgency);
+        $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency);
         if ($saveUser) {
             $_SESSION['message'] = "User added successfully!";
             $_SESSION['msg_type'] = "success";
@@ -152,4 +152,20 @@ if (isset($_POST['status_id']) && isset( $_POST['status'])) {
     } else {
         echo 'Error: ' . mysqli_error($con);
     }
+}
+if (isset($_POST['userDocs'])) {
+    $id = mysqli_real_escape_string($con, $_POST['userDocs']);
+    
+    $uploadDocs = uploadUserDocs($con, $dadId, $momId, $birthCert);
+
+    if ($saveRequest) {
+        $_SESSION['message'] = "Card request submitted successfully!";
+        $_SESSION['msg_type'] = "success";
+    } else {
+        $_SESSION['message'] = "Failed to submit card request.";
+        $_SESSION['msg_type'] = "danger";
+    }
+    
+    header('Location: dashboard.php');
+    exit();
 }

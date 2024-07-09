@@ -155,9 +155,16 @@ function uploadFile($file, $prefix, $destination) {
     }
     return $fileName;
 }
-function saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $dadId, $momId, $birthCert, $userAgency){
-    $saveUser = mysqli_query($con, "INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`,  `village`, `role`,`profile_pic`, `fathers_id`, `mothers_id`, `birth_cert`, `agency`)
-                                     VALUES (NULL, '$userFname', '$userMname', '$userLname', '$userPhone', '$userEmail', '$userDob', '$userPob', '$userPassword', '$userClan', '$userVillage', '$userRole', '$profilePic', '$dadId', '$momId', '$birthCert', '$userAgency')");
+function saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency){
+    $saveUser = mysqli_query($con, "INSERT INTO `users` (`id`, `fname`, `mname`, `lname`, `phone`, `email`, `dob`, `pob`, `password`, `clan`,  `village`, `role`,`profile_pic`, `agency`)
+                                     VALUES (NULL, '$userFname', '$userMname', '$userLname', '$userPhone', '$userEmail', '$userDob', '$userPob', '$userPassword', '$userClan', '$userVillage', '$userRole', '$profilePic', '$userAgency')");
+    if ($saveUser) {
+        return true;
+    }
+}
+function uploadUserDocs($con, $dadId, $momId, $birthCert){
+    $userId = $_SESSION['user_id'];
+    $saveUser = mysqli_query($con, "UPDATE `users` SET `fathers_id`='$dadId', `mothers_id`='$momId', `birth_cert`='$birthCert' WHERE `id`='$userId'");
     if ($saveUser) {
         return true;
     }
