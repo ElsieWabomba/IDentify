@@ -41,10 +41,6 @@ if (isset($_POST['saveUser'])) {
     $userRole = mysqli_real_escape_string($con, $_POST['role']);
     
     $profilePic = uploadFile($_FILES['profile_pic'], "profile_pic", "attachments/images/users/");
-    $momId = uploadFile($_FILES['mom_id'], "momId", "attachments/images/documents/");
-    $dadId = uploadFile($_FILES['dad_id'], "dadId", "attachments/images/documents/");
-    $birthCert = uploadFile($_FILES['birth_cert'], "birth_cert", "attachments/images/documents/");
-
 
     if (count(searchUser($con, $userEmail, $userPhone)) < 1) {
         $saveUser = saveUser($con, $userFname, $userMname, $userLname, $userPhone, $userEmail, $userDob, $userPob, $userPassword, $userClan, $userVillage, $userRole, $profilePic, $userAgency);
@@ -155,14 +151,17 @@ if (isset($_POST['status_id']) && isset( $_POST['status'])) {
 }
 if (isset($_POST['userDocs'])) {
     $id = mysqli_real_escape_string($con, $_POST['userDocs']);
+    $momId = uploadFile($_FILES['mom_id'], "momId", "attachments/images/documents/");
+    $dadId = uploadFile($_FILES['dad_id'], "dadId", "attachments/images/documents/");
+    $birthCert = uploadFile($_FILES['birth_cert'], "birth_cert", "attachments/images/documents/");
     
     $uploadDocs = uploadUserDocs($con, $dadId, $momId, $birthCert);
 
     if ($saveRequest) {
-        $_SESSION['message'] = "Card request submitted successfully!";
+        $_SESSION['message'] = "Documents Uploaded Successfully!";
         $_SESSION['msg_type'] = "success";
     } else {
-        $_SESSION['message'] = "Failed to submit card request.";
+        $_SESSION['message'] = "Failed to Upload Documents.";
         $_SESSION['msg_type'] = "danger";
     }
     
